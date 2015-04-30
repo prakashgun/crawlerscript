@@ -16,7 +16,8 @@ class Crawler
     protected $error;
     protected $crawledUrls = array();
 
-    public function setUrl($url) {
+    public function setUrl($url) 
+    {
         if (filter_var($url, FILTER_VALIDATE_URL) === false) {
             $this->error = "Not a valid url ";
             return false;
@@ -27,7 +28,8 @@ class Crawler
         return true;
     }
 
-    public function setDepth($depth) {
+    public function setDepth($depth) 
+    {
         if (is_numeric($depth) !== true) {
             $this->error = "Depth is not numeric";
             return false;
@@ -36,17 +38,20 @@ class Crawler
         return true;
     }
 
-    public function getError() {
+    public function getError() 
+    {
         return $this->error;
     }
 
-    protected function countTags($content, $name) {
+    protected function countTags($content, $name) 
+    {
         $dom = new \DOMDocument('1.0');
         @$dom->loadHTML($content);
         return $dom->getElementsByTagName('img')->length;
     }
 
-    protected function processInsideUrls($content, $url, $depth) {
+    protected function processInsideUrls($content, $url, $depth) 
+    {
         $dom = new \DOMDocument('1.0');
         @$dom->loadHTML($content);
         $anchors = $dom->getElementsByTagName('a');
@@ -76,7 +81,8 @@ class Crawler
         }
     }
 
-    protected function fetchUrlContent($url) {
+    protected function fetchUrlContent($url) 
+    {
         $handle = curl_init($url);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, TRUE);
         /* Get the HTML or whatever is linked in $url. */
@@ -89,7 +95,8 @@ class Crawler
         return array($response, $httpCode, $time);
     }
 
-    protected function showResult($url, $depth, $httpcode, $time, $tagcount) {
+    protected function showResult($url, $depth, $httpcode, $time, $tagcount) 
+    {
         @ob_end_flush();
         $currentDepth = $this->depth - $depth;
         $count = count($this->crawledUrls);
@@ -100,7 +107,8 @@ class Crawler
         flush();
     }
 
-    protected function isValid($url, $depth) {
+    protected function isValid($url, $depth) 
+    {
         if (strpos($url, $this->host) === false) {
             return false;
         }
@@ -117,7 +125,8 @@ class Crawler
      * Start the crawling
      * @return boolean
      */
-    protected function crawlPage($url, $depth) {
+    protected function crawlPage($url, $depth) 
+    {
         if (filter_var($url, FILTER_VALIDATE_URL) === false) {
             $this->error = "Url not set.";
             return false;
@@ -140,7 +149,8 @@ class Crawler
         return true;
     }
 
-    public function run() {
+    public function run() 
+    {
         return $this->crawlPage($this->url, $this->depth);
     }
 
