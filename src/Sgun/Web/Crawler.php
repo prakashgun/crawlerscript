@@ -7,7 +7,8 @@ namespace Sgun\Web;
  *
  * @author prakash
  */
-class Crawler {
+class Crawler 
+{
 
     protected $url;
     protected $host;

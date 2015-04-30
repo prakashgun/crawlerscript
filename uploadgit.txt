@@ -1,0 +1,6 @@
+cd "/your/repo/dir"
+git clone https://github.com/user_AKA_you/repoName # (creates /your/repo/dir/repoName)
+cp "/all/your/existing/code/*" "/your/repo/dir/repoName/"
+git add -A
+git commit -m "initial commit"
+git push origin master
